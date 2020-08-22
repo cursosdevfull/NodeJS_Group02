@@ -1,18 +1,19 @@
-import http from 'http';
-import express, { Application } from 'express';
+import app from './app';
+import { DatabaseBootstrap, ServerBootstrap } from './bootstrap';
 
-const app: Application = express();
-
-app.get('/'); // http://localhost:3000
-
-const server = http.createServer(
-  (request: http.IncomingMessage, response: http.ServerResponse) => {
-    response.writeHead(200, { 'content-type': 'text/plain' });
-    response.write('Hola mundo');
-    response.end();
+const start = async () => {
+  try {
+    const serverBootstrap = new ServerBootstrap(app);
+    const databaseBootstrap = new DatabaseBootstrap();
+    await serverBootstrap.initialize();
+  } catch (error) {
+    console.log(error);
   }
-);
+};
 
-server.listen(3000, () => {
-  console.log('Server is running');
-});
+start();
+
+/* serverBootstrap
+  .initialize()
+  .then(() => console.log('Promise resolved'))
+  .catch((error) => console.log('Promise rejected', error)); */
