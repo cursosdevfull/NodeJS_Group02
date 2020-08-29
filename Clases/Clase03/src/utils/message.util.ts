@@ -1,0 +1,13 @@
+export default class {
+  static log(message: string | string[] | object) {
+    if (Array.isArray(message)) {
+      console.log('APP School', ...message);
+      // message = ["a", "b", "c"]
+      // ...message   "a", "b", "c"
+    } else if (typeof message === 'string') {
+      console.log('APP School', message);
+    } else {
+      console.log('APP School', JSON.stringify(message));
+    }
+  }
+}

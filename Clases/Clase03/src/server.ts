@@ -1,19 +1,16 @@
 import app from './app';
 import { DatabaseBootstrap, ServerBootstrap } from './bootstrap';
+import { Message } from './utils';
 
 const start = async () => {
   try {
     const serverBootstrap = new ServerBootstrap(app);
     const databaseBootstrap = new DatabaseBootstrap();
     await serverBootstrap.initialize();
+    await databaseBootstrap.initialize();
   } catch (error) {
-    console.log(error);
+    Message.log(error);
   }
 };
 
 start();
-
-/* serverBootstrap
-  .initialize()
-  .then(() => console.log('Promise resolved'))
-  .catch((error) => console.log('Promise rejected', error)); */

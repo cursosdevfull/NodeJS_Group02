@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import http from 'http';
 import app from '../app';
+import { Message } from '../utils';
 
 export default class {
   private app: Application;
@@ -16,12 +17,11 @@ export default class {
       server
         .listen(3000)
         .on('listening', () => {
-          console.log('Server is runing');
+          Message.log('Server is runing');
           resolve();
         })
         .on('error', (error) => {
           reject(error);
-          console.log(error);
         });
     });
 
