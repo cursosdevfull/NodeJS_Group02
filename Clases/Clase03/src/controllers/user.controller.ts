@@ -1,6 +1,8 @@
-import { Request, Response } from 'express';
 import { UserRepository } from '../repositories';
-import { nextTick } from 'process';
+import { Request, Response } from 'express';
+import { UserDocument } from '../interfaces';
+import { mappingUserGeneralDto } from '../dto';
+import { Responses } from '../utils';
 
 export default class {
   private userRepository: UserRepository;
@@ -8,28 +10,46 @@ export default class {
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
     this.getAll = this.getAll.bind(this);
-    this.getAllAdmins = this.getAllAdmins.bind(this);
+    this.getById = this.getById.bind(this);
+    this.insert = this.insert.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
-  // constructor(private userRepository: UserRepository) {}
 
   async getAll(req: Request, res: Response) {
-    const users = await this.userRepository.getAll();
-    res.json(users);
+    const users: UserDocument[] = await this.userRepository.getAll();
 
-    /*     res.writeHead(200, { 'content-type': 'application/json' });
-    res.write(JSON.stringify(users));
-    res.end();
+    if (users && users.length) {
+      return Responses.sentOk(res, mappingUserGeneralDto(users));
+    }
 
-    next(); */
+    Responses.sentNotFound(res);
   }
 
-  /*              getAll = async (req: Request, res: Response) => {
-                   const users = await this.userRepository.getAll();
-                   res.json(users);
-                 }; */
+  async getById(req: Request, res: Response) {
+    const user: UserDocument = await this.userRepository.getById(req.params.id);
+    Responses.sentOk(res, mappingUserGeneralDto(user));
+  }
 
-  async getAllAdmins(req: Request, res: Response) {
-    const users = await this.userRepository.getAllAdmins();
-    res.json(users);
+  async insert(req: Request, res: Response) {
+    const user = req.body;
+    const userInserted: UserDocument = await this.userRepository.insert(user);
+    Responses.sentOk(res, mappingUserGeneralDto(userInserted));
+  }
+
+  async update(req: Request, res: Response) {
+    const user = req.body;
+    const id = req.params.id;
+    const userUpdated: UserDocument = await this.userRepository.update(
+      id,
+      user
+    );
+    Responses.sentOk(res, mappingUserGeneralDto(userUpdated));
+  }
+
+  async delete(req: Request, res: Response) {
+    const id = req.params.id;
+    const userDeleted: UserDocument = await this.userRepository.delete(id);
+    Responses.sentOk(res, mappingUserGeneralDto(userDeleted));
   }
 }
