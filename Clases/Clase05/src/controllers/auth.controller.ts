@@ -12,7 +12,6 @@ export default class {
 
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
-    this.login = this.login.bind(this);
   }
 
   @Post('/login')
@@ -36,7 +35,4 @@ export default class {
       return Responses.sentNotFound(res);
     }
   }
-
-  @Post('/register')
-  async register(req: Request, res: Response): Promise<any> {}
 }

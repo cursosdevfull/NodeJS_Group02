@@ -15,7 +15,7 @@ const decorator = (path: string, middlewares: any[] = []): MethodDecorator => {
       path,
       requestMethod: 'delete',
       methodName: propertyKey,
-      middlewares: [],
+      middlewares,
     });
 
     Reflect.defineMetadata('routes', routes, target.constructor);

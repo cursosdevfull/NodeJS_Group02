@@ -4,18 +4,17 @@ import { RoleDocument } from '../interfaces';
 import { mappingRoleGeneralDto } from '../dto';
 import { Responses } from '../utils';
 import { Controller, Delete, Get, Post, Put } from '../decorators';
+import { AuthenticationGuard, AuthorizationGuard } from '../guards';
 
-@Controller('/roles')
+@Controller('/roles', [
+  AuthenticationGuard.canActivate,
+  AuthorizationGuard.canActivate('ADMINISTRATOR'),
+])
 export default class {
   private roleRepository: RoleRepository;
 
   constructor(roleRepository: RoleRepository) {
     this.roleRepository = roleRepository;
-    /*     this.getAll = this.getAll.bind(this);
-    this.getById = this.getById.bind(this);
-    this.insert = this.insert.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this); */
   }
 
   @Get('/')
@@ -30,7 +29,7 @@ export default class {
   }
 
   @Get('/:id')
-  async getById(req: Request, res: Response) {
+  async getById(req: Request, res: Response): Promise<any> {
     const role: RoleDocument = await this.roleRepository.getById(req.params.id);
     Responses.sentOk(res, mappingRoleGeneralDto(role));
   }

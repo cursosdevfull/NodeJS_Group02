@@ -1,22 +1,22 @@
 import { UserRepository } from '../repositories';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { UserDocument } from '../interfaces';
 import { mappingUserGeneralDto } from '../dto';
 import { Responses, Token } from '../utils';
 import bcrypt from 'bcryptjs';
 import { Controller, Delete, Get, Post, Put } from '../decorators';
+import { AuthenticationGuard, AuthorizationGuard } from '../guards';
+import { SchemaValidator, userSchemas } from '../validators';
 
-@Controller('/users')
+@Controller('/users', [
+  AuthenticationGuard.canActivate,
+  AuthorizationGuard.canActivate('ADMINISTRATOR'),
+])
 export default class {
   private userRepository: UserRepository;
 
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
-    this.getAll = this.getAll.bind(this);
-    this.getById = this.getById.bind(this);
-    this.insert = this.insert.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
   }
 
   @Get('/')
@@ -36,8 +36,8 @@ export default class {
     Responses.sentOk(res, mappingUserGeneralDto(user));
   }
 
-  @Post('/')
-  async insert(req: Request, res: Response) {
+  @Post('/', [SchemaValidator.validate(userSchemas.POST_INSERT)])
+  async insert(req: Request, res: Response, next: NextFunction) {
     const user = req.body;
     user.refreshToken = Token.getRefreshToken();
     user.password = await bcrypt.hash(user.password, 10);

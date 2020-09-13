@@ -1,4 +1,5 @@
-import { Application, Request, Response } from 'express';
+import { Application, NextFunction, Request, Response } from 'express';
+import { Errors, Message } from '.';
 import { RouteDefinition } from '../interfaces';
 
 const getInstancesDependencies = (dependencies: any[]): any[] => {
@@ -30,14 +31,16 @@ const attachs = (app: Application, controllers: any[]) => {
     );
 
     routes.forEach((route: RouteDefinition) => {
-      console.log(route.requestMethod.toUpperCase(), prefix + route.path);
+      Message.log([route.requestMethod.toUpperCase(), prefix + route.path]);
       app[route.requestMethod](
         prefix + route.path,
         ...middlewares,
         ...route.middlewares,
-        (req: Request, res: Response): Promise<any> => {
-          return instance[route.methodName](req, res);
-        }
+        Errors.catchAsync(
+          (req: Request, res: Response, next: NextFunction): Promise<any> => {
+            return instance[route.methodName](req, res);
+          }
+        )
       );
     });
   });

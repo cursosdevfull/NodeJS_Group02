@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { IError } from '../interfaces';
 
 export default class {
   static sentOk(res: Response, result: any | any[]) {
@@ -30,5 +31,33 @@ export default class {
       status: 409,
       message,
     });
+  }
+
+  static sentErrorDatabase(res: Response, message: object) {
+    res.status(500).json({
+      status: 500,
+      message,
+    });
+  }
+
+  static sentErrorServer(res: Response, err: IError) {
+    const dataError: any = {
+      status: err.status,
+      message: err.message,
+    };
+
+    if (process.env.NODE_ENV === 'development') {
+      dataError.stack = err.stack;
+    }
+
+    res.status(err.status).json(dataError);
+  }
+
+  static sendErrorParameters(res: Response, result: any) {
+    const dataError = Object.assign({}, result);
+    if (process.env.NODE_ENV !== 'development') {
+      delete dataError._original;
+    }
+    res.status(411).json({ status: 411, dataError });
   }
 }
