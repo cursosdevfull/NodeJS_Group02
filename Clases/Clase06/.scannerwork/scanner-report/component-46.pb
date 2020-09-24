@@ -1,0 +1,1 @@
+. 2webX›hrCreports/coverage/lcov-report/src/guards/authorization.guard.ts.html

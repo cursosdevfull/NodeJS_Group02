@@ -1,0 +1,1 @@
+* 2webXÂhr=reports/coverage/lcov-report/src/dto/user-general.dto.ts.html

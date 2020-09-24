@@ -1,0 +1,1 @@
+y 2webXhr*reports/coverage/src/validators/index.html

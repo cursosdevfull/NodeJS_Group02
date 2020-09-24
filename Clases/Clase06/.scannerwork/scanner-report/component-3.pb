@@ -1,0 +1,1 @@
+ 2xmlXhrcoverage/test-reporter.xml

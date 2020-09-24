@@ -38,3 +38,26 @@ test('country', () => {
 
   expect(countries).not.toContain(countryEntered);
 });
+
+test('campaña empieza PE', () => {
+  const campania = 'PE_202016';
+  expect(campania).toMatch(/PE/);
+});
+
+const compileWithError = () => {
+  throw new Error('It is not working');
+};
+
+test('error generado', () => {
+  expect(compileWithError).toThrow();
+  expect(compileWithError).toThrow(Error);
+  expect(compileWithError).toThrow('It is not working');
+  expect(compileWithError).toThrow(/working/);
+});
+
+test('lista', () => {
+  const lista = ['rojo', 'verde', 'azul', 'naranja', 'amarillo'];
+
+  expect(lista).toContain('verde');
+  expect(new Set(lista)).toContain('azul');
+});

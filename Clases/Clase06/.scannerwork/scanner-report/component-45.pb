@@ -1,0 +1,1 @@
+- 2webX°hrDreports/coverage/lcov-report/src/guards/authentication.guard.ts.html

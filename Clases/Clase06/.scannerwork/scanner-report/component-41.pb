@@ -1,0 +1,1 @@
+) 2webX¡hr=reports/coverage/lcov-report/src/dto/role-general.dto.ts.html

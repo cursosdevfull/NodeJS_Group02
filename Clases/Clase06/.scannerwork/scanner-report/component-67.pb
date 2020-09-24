@@ -1,0 +1,1 @@
+C 2webXçhr6reports/coverage/lcov-report/src/validators/index.html

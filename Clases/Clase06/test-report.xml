@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\Sergio\repositorios\nodejsgrupo2\Clases\Clase06\test\unit\user.repository.spec.ts">
+    <testCase name="user.repository.ts getAll" duration="9"/>
+    <testCase name="user.repository.ts getUserByEmail" duration="2"/>
+  </file>
+  <file path="D:\Sergio\repositorios\nodejsgrupo2\Clases\Clase06\test\unit\user.controller.spec.ts">
+    <testCase name="user.controller.ts getAll" duration="11"/>
+  </file>
+  <file path="D:\Sergio\repositorios\nodejsgrupo2\Clases\Clase06\test\integration\user.spec.ts">
+    <testCase name="user integration list users with token valid" duration="108"/>
+    <testCase name="user integration list users without token" duration="9"/>
+    <testCase name="user integration list users with token invalid" duration="5"/>
+  </file>
+</testExecutions>

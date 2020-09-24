@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Name01",
+    "email": "email1@email.com",
+    "password": "123",
+    "isActive": true,
+    "refreshToken": "abc",
+    "roles": [{ "roleName": "admin", "isActive": true }]
+  },
+  {
+    "name": "Name02",
+    "email": "email2@email.com",
+    "password": "123",
+    "isActive": true,
+    "refreshToken": "abc",
+    "roles": [{ "roleName": "admin", "isActive": true }]
+  },
+  {
+    "name": "Name03",
+    "email": "email3@email.com",
+    "password": "123",
+    "isActive": true,
+    "refreshToken": "abc",
+    "roles": [{ "roleName": "admin", "isActive": true }]
+  }
+]

@@ -1,0 +1,1 @@
+$ 2webX_hr9reports/coverage/lcov-report/src/decorators/index.ts.html

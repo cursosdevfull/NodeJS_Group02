@@ -1,0 +1,1 @@
+š 2tsXhr!src/interfaces/error.interface.ts

@@ -1,0 +1,1 @@
+Q 2webXÂhr8reports/coverage/src/controllers/auth.controller.ts.html
